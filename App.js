@@ -1,4 +1,5 @@
 import { StyleSheet, View, StatusBar } from 'react-native';
+import NavBottom from './components/NavBottom';
 import Home from './screens/Home';
 
 export default function App() {
@@ -8,7 +9,7 @@ export default function App() {
         animated={true}
         backgroundColor="#2A2A37"
       />
-      <Home/>
+      <NavBottom/>
     </View>
   );
 }

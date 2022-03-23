@@ -30,6 +30,7 @@ const Home = () => {
         </Rooms> :
         <Devices></Devices>
       }
+      
     </Container>
   )
 }
@@ -55,7 +56,7 @@ const Container = styled.View`
 `
 const Btn = styled.Text`
   color: ${props => props.target?'white':'gray'};
-  border-bottom-width: ${props=>props.target? 4:0};
+  border-bottom-width: ${props=>props.target? '4px':'0px'};
   border-color: ${props=>props.target?'#FF9900':'white'};
   padding: 10px 10px;
   width: 100px;
