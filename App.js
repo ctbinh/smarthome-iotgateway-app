@@ -1,6 +1,5 @@
 import { StyleSheet, View, StatusBar } from 'react-native';
 import NavBottom from './components/NavBottom';
-import Home from './screens/Home';
 
 export default function App() {
   return (
