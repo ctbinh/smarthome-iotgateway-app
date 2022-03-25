@@ -1,5 +1,7 @@
 import { StyleSheet, View, StatusBar } from 'react-native';
-import NavBottom from './components/NavBottom';
+import Navigation from './components/Navigation';
+import AddRoom from './screens/AddRoom';
+import RoomDetail from './screens/RoomDetail';
 
 export default function App() {
   return (
@@ -8,7 +10,9 @@ export default function App() {
         animated={true}
         backgroundColor="#2A2A37"
       />
-      <NavBottom/>
+      <Navigation/>
+      {/* <RoomDetail/> */}
+      {/* <AddRoom/> */}
     </View>
   );
 }

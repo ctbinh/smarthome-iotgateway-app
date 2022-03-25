@@ -50,7 +50,7 @@ const Container = styled.View`
   width: 49%;
   background-color: #F0F0F0;
   border-radius: 5px;
-  margin-top: 5px;
+  margin: 5px 0;
   padding: 10px;
 `
 

@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Header from '../components/Header'
-import styled from 'styled-components/native';
+import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import Room from '../components/Room';
-import { Text, View, ScrollView, SafeAreaView } from 'react-native';
+import { Text, View} from 'react-native';
 import Device from '../components/Device';
 
-const Home = () => {
+const Home = (props) => {
   const [targetTab, setTargetTab] = useState(1)
   const [targetDevice, setTargetDevice] = useState('Light')
   const changeTab = (num) => {
@@ -69,19 +69,24 @@ const Home = () => {
   
   return (
     <Container>
-      <Header title='Your Home'/>
-      <NavBar>
-        <ComboBtn>
-          <Btn onPress={()=>changeTab(0)} style={{zIndex: 0.5}} target={targetTab===0}>ROOMS</Btn>
-          <Btn onPress={()=>changeTab(1)} style={{zIndex: 0.5}} target={targetTab===1}>DEVICES</Btn>
-        </ComboBtn>
-        <AddBtn name="add-circle" size={34} color="orange" onPress={()=>addSomething()}/>
-      </NavBar>
+      <View style={{backgroundColor:'#2A2A37'}}>
+        <Header title='Your Home'/>
+        <NavBar>
+          <ComboBtn>
+            <Btn onPress={()=>changeTab(0)} style={{zIndex: 0.5}} target={targetTab===0}>ROOMS</Btn>
+            <Btn onPress={()=>changeTab(1)} style={{zIndex: 0.5}} target={targetTab===1}>DEVICES</Btn>
+          </ComboBtn>
+          <AddBtn name="add-circle" size={34} color="orange" onPress={()=>addSomething()}/>
+        </NavBar>
+      </View>
       {targetTab===0 ? 
         <Rooms>
-          <Room name='Living Room' numDevice={1} logo='table-chair'/>
-          <Room name='Kitchen' numDevice={2} logo='microwave'/>
-          <Room name='Bathroom' numDevice={0} logo='shower'/>
+          <Room name='Living Room' numDevice={1} logo='table-chair' 
+            onPress={()=>props.navigation.navigate('RoomDetail', {greeting:'this is params'})}/>
+          <Room name='Kitchen' numDevice={2} logo='microwave'
+            onPress={()=>props.navigation.navigate('RoomDetail', {greeting:'this is params'})}/>
+          <Room name='Bathroom' numDevice={0} logo='shower'
+            onPress={()=>props.navigation.navigate('RoomDetail', {greeting:'this is params'})}/>
         </Rooms> :
         <View >
           <Devices style={{shadowColor: "#000",
@@ -140,12 +145,21 @@ const Home = () => {
           </BoxRoom>
         </View >
       }
+      
     </Container>
   )
 }
 
+const AddOption = styled.View`
+  height: 200px;
+  background-color: red;
+  position: absolute;
+  flex: 1;
+  width: 100%;
+  z-index: 999;
+`
 const BoxRoom = styled.View`
-  padding: 10px;
+  padding: 5px 10px;
   margin: 5px 10px;
   background-color: white;
   border-radius: 5px;

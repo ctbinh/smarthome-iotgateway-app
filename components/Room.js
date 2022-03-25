@@ -6,13 +6,15 @@ import { Text } from 'react-native';
 const Room = (props) => {
   return (
     <Container style={{shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,}}>
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,}}
+      onPress={props.onPress}    
+    >
       <Icon name={props.logo} size={70} color='orange'/>
       <Text style={{fontWeight:'bold', fontSize: 18}}>{props.name}</Text>
       <Text style={{color:'gray'}}>x{props.numDevice} Devices</Text>
@@ -20,7 +22,7 @@ const Room = (props) => {
   )
 }
 
-const Container = styled.View`
+const Container = styled.Pressable`
   margin: 5px 0;
   width: 49%;
   display: flex;
