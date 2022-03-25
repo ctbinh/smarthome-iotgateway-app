@@ -10,11 +10,10 @@ const RoomDetail = ({navigation, route}) => {
   return (
     <Container>
       <View style={{backgroundColor:'#2A2A37'}}>
-        <Header title='Your Home'/>
         <NavBar>
           <Icon name='chevron-left' size={28} color='white' onPress={()=>navigation.goBack()}/>
           <Title>{params?.greeting}</Title>
-          <Icon name='plus' size={28} color='white'/>
+          <Icon name='plus' size={28} color='white' onPress={()=>navigation.navigate('AddRoom', {add: 'device'})}/>
         </NavBar>
       </View>
       <Devices>
@@ -36,7 +35,7 @@ const NavBar =styled.View`
   justify-content: space-between;
   align-items: center;
   background-color: #2A2A37;
-  padding: 5px 10px;
+  padding: 10px;
 `
 const Devices = styled.View`
   display: flex;

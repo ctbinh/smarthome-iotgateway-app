@@ -4,7 +4,9 @@ import styled from 'styled-components'
 import Header from '../components/Header'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-const AddRoom = () => {
+const AddRoom = ({navigation, route}) => {
+  const {params} = route
+  const addType = params.add
   const roomIcons = [
     {
       id: 0,
@@ -52,34 +54,69 @@ const AddRoom = () => {
       icon: 'baby'
     }
   ]
-  const [roomName, setRoomName] = useState('')
+  const deviceIcons = [
+    {
+      id: 0,
+      name: 'Light',
+      icon: 'lightbulb-outline'
+    },
+    {
+      id: 1,
+      name: 'Thermostat',
+      icon: 'thermometer'
+    },
+    {
+      id: 2,
+      name: 'Fan',
+      icon: 'fan'
+    },
+    {
+      id: 3,
+      name: 'Speaker',
+      icon: 'speaker'
+    },
+    {
+      id: 4,
+      name: 'Door',
+      icon: 'door'
+    }
+  ]
+  const [name, setName] = useState('')
   const [targetIcon, setTagetIcon] = useState(0)
   return (
     <View>
-      <Header title='Your Home'/>
-      <NavBar>
-        <Icon name='chevron-left' size={28} color='white'/>
-        <Title>Add Room</Title>
-        <Text/>
-      </NavBar>
+      <View style={{backgroundColor:'#2A2A37'}}>
+        <NavBar>
+          <Icon name='chevron-left' size={28} color='white'
+            onPress={()=>navigation.goBack()}/>
+          <Title>{addType==='room'? 'Add Room':'Add Device'}</Title>
+          <Text/>
+        </NavBar>
+      </View>
       <Form>
-        <Field>Enter room's name</Field>
+        <Field>{addType==='room'? "Enter room's name":"Enter device's name"}</Field>
         <Input 
-          onChangeText={setRoomName}
-          value={roomName}
-          placeholder="Your room name..."
-          keyboardType="text"
+          onChangeText={setName}
+          value={name}
+          placeholder={addType==='room'? "Your room name...":"Your device name..."}
         />
-        <Field>Select room's icon</Field>
-        {roomIcons.map((roomIcon) => {
+        <Field>{addType==='room'? "Select room's icon":"Select device's icon"}</Field>
+        {addType==='room' ? roomIcons.map((roomIcon) => {
           return (
-            <RoomItem onPress={()=>setTagetIcon(roomIcon.id)}>
+            <RoomItem key={roomIcon.id} onPress={()=>setTagetIcon(roomIcon.id)}>
               <RoomIcon style={{backgroundColor: targetIcon===roomIcon.id ? 'orange':'#F0F0F0', color:targetIcon===roomIcon.id ? 'white':'gray'}} size={60} name={roomIcon.icon}/>
               <Text style={{fontWeight:'bold', color: targetIcon===roomIcon.id? 'orange':'black'}}>{roomIcon.name}</Text>
             </RoomItem>)
+        }) :
+        deviceIcons.map((deviceIcon) => {
+          return (
+            <RoomItem key={deviceIcon.id} onPress={()=>setTagetIcon(deviceIcon.id)}>
+              <RoomIcon style={{backgroundColor: targetIcon===deviceIcon.id ? 'orange':'#F0F0F0', color:targetIcon===deviceIcon.id ? 'white':'gray'}} size={60} name={deviceIcon.icon}/>
+              <Text style={{fontWeight:'bold', color: targetIcon===deviceIcon.id? 'orange':'black'}}>{deviceIcon.name}</Text>
+            </RoomItem>)
         })}
       </Form>
-      <SaveBtn><Button color={'#2A2A37'} title='Save' onPress={()=> alert(roomName)}/></SaveBtn>
+      <SaveBtn><Button color={'#2A2A37'} title='Save' onPress={()=> alert(name)}/></SaveBtn>
     </View>
   )
 }
@@ -127,7 +164,7 @@ const NavBar =styled.View`
   justify-content: space-between;
   align-items: center;
   background-color: #2A2A37;
-  padding: 5px 10px;
+  padding: 10px;
 `
 
 export default AddRoom

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header'
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -76,7 +76,8 @@ const Home = (props) => {
             <Btn onPress={()=>changeTab(0)} style={{zIndex: 0.5}} target={targetTab===0}>ROOMS</Btn>
             <Btn onPress={()=>changeTab(1)} style={{zIndex: 0.5}} target={targetTab===1}>DEVICES</Btn>
           </ComboBtn>
-          <AddBtn name="add-circle" size={34} color="orange" onPress={()=>addSomething()}/>
+          <AddBtn name="add-circle" size={34} color="orange" 
+            onPress={()=>props.navigation.navigate('AddRoom', {add: 'room'})}/>
         </NavBar>
       </View>
       {targetTab===0 ? 
@@ -150,14 +151,6 @@ const Home = (props) => {
   )
 }
 
-const AddOption = styled.View`
-  height: 200px;
-  background-color: red;
-  position: absolute;
-  flex: 1;
-  width: 100%;
-  z-index: 999;
-`
 const BoxRoom = styled.View`
   padding: 5px 10px;
   margin: 5px 10px;
