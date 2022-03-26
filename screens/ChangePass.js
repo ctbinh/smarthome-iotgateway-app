@@ -52,7 +52,7 @@ const BtnSave = styled.Pressable`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-color: ${props=>props.color?props.color:'orange'};
+  background-color: ${props=>props.color?props.color:'#2A2A37'};
 `
 const Field = styled.Text`
   color: gray;

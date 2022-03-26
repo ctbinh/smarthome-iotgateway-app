@@ -15,9 +15,9 @@ const Room = (props) => {
         elevation: 5,}}
       onPress={props.onPress}    
     >
-      <Icon name={props.logo} size={70} color='orange'/>
-      <Text style={{fontWeight:'bold', fontSize: 18}}>{props.name}</Text>
-      <Text style={{color:'gray'}}>x{props.numDevice} Devices</Text>
+      <Icon name={props.room.icon} size={70} color='orange'/>
+      <Text style={{fontWeight:'bold', fontSize: 18}}>{props.room.name}</Text>
+      <Text style={{color:'gray'}}>x{props.room.devices.length} Devices</Text>
     </Container>
   )
 }

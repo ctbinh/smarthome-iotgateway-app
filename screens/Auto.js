@@ -38,31 +38,33 @@ const Auto = () => {
     alert('add something');
   }
   return (
-    <ScrollView>
+    <>
       <Header title="Mode"/>
       <AddBtn >
         <IonIcon name="add-circle" size={34} color="orange" onPress={()=>addSomething()}/>
       </AddBtn>
-      <ModeContainer style={{shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,}}>
-        {
-          autoItems.map((item)=>{
-            return(
-            <ModeItem
-              title = {item.title}
-              description = {item.description}
-              key = {item.id}
-            />)
-          })
-        }
-      </ModeContainer>
-    </ScrollView>
+      <ScrollView>
+        <ModeContainer style={{shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,}}>
+          {
+            autoItems.map((item)=>{
+              return(
+              <ModeItem
+                title = {item.title}
+                description = {item.description}
+                key = {item.id}
+              />)
+            })
+          }
+        </ModeContainer>
+      </ScrollView>
+    </>
   )
 }
 

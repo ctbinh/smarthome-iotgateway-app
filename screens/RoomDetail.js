@@ -17,9 +17,11 @@ const RoomDetail = ({navigation, route}) => {
         </NavBar>
       </View>
       <Devices>
-        <Device device={{name:'test'}}/>
-        <Device device={{name:'test'}}/>
-        <Device device={{name:'test'}}/>
+        {params.devices.map((device, key)=> {
+          return (
+            <Device key={key} device={device}/>
+          )
+        })}
       </Devices>
     </Container>
   )

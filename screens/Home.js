@@ -4,17 +4,14 @@ import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import Room from '../components/Room';
-import { Text, View} from 'react-native';
-import Device from '../components/Device';
+import { Text, View, ScrollView } from 'react-native';
+import BoxRoom from '../components/BoxRoom';
 
 const Home = (props) => {
   const [targetTab, setTargetTab] = useState(1)
   const [targetDevice, setTargetDevice] = useState('Light')
   const changeTab = (num) => {
     setTargetTab(num);
-  }
-  const addSomething = () => {
-    alert('add something');
   }
   const changeDevice = (device) => {
     setTargetDevice(device)
@@ -50,14 +47,164 @@ const Home = (props) => {
     {
       id: 0,
       name: 'Living Room',
+      icon: 'table-chair',
       devices: [
         {
-        type:'light',
-        status: 0,
-        name: 'Single led 1',
-        icon: 'light'
+          id: 0,
+          type:'light',
+          status: 0,
+          name: 'Single led 1',
+          icon: 'light'
         },
         {
+          id: 1,
+          type:'fan',
+          status: 1,
+          name: 'Fan 1',
+          icon: 'fan'
+        }
+      ]
+    },
+    {
+      id: 1,
+      name: 'Living Room',
+      icon: 'table-chair',
+      devices: [
+        {
+          id: 0,
+          type:'light',
+          status: 0,
+          name: 'Single led 1',
+          icon: 'light'
+        },
+        {
+          id: 1,
+          type:'fan',
+          status: 1,
+          name: 'Fan 1',
+          icon: 'fan'
+        }
+      ]
+    },
+    {
+      id: 2,
+      name: 'Living Room',
+      icon: 'table-chair',
+      devices: [
+        {
+          id: 0,
+          type:'light',
+          status: 0,
+          name: 'Single led 1',
+          icon: 'light'
+        },
+        {
+          id: 1,
+          type:'fan',
+          status: 1,
+          name: 'Fan 1',
+          icon: 'fan'
+        }
+      ]
+    },
+    {
+      id: 3,
+      name: 'Living Room',
+      icon: 'table-chair',
+      devices: [
+        {
+          id: 0,
+          type:'light',
+          status: 0,
+          name: 'Single led 1',
+          icon: 'light'
+        },
+        {
+          id: 1,
+          type:'fan',
+          status: 1,
+          name: 'Fan 1',
+          icon: 'fan'
+        },
+        {
+          id: 2,
+          type:'fan',
+          status: 1,
+          name: 'Fan 1',
+          icon: 'fan'
+        }
+      ]
+    },
+    {
+      id: 4,
+      name: 'BathRoom',
+      icon: 'table-chair',
+      devices: [
+        {
+          id: 0,
+          type:'fan',
+          status: 1,
+          name: 'Fan 1',
+          icon: 'fan'
+        },
+        {
+          id: 1,
+          type:'fan',
+          status: 1,
+          name: 'Fan 1',
+          icon: 'fan'
+        }
+      ]
+    },
+    {
+      id: 5,
+      name: 'BedRoom',
+      icon: 'table-chair',
+      devices: [
+        {
+          id: 0,
+          type:'light',
+          status: 0,
+          name: 'Single led 1',
+          icon: 'light'
+        },
+        {
+          id: 1,
+          type:'fan',
+          status: 1,
+          name: 'Fan 1',
+          icon: 'fan'
+        },
+        {
+          id: 2,
+          type:'fan',
+          status: 1,
+          name: 'Fan 1',
+          icon: 'fan'
+        }
+      ]
+    },
+    {
+      id: 6,
+      name: 'BedRoom',
+      icon: 'table-chair',
+      devices: [
+        {
+          id: 0,
+          type:'light',
+          status: 0,
+          name: 'Single led 1',
+          icon: 'light'
+        },
+        {
+          id: 1,
+          type:'fan',
+          status: 1,
+          name: 'Fan 1',
+          icon: 'fan'
+        },
+        {
+          id: 2,
           type:'fan',
           status: 1,
           name: 'Fan 1',
@@ -81,15 +228,17 @@ const Home = (props) => {
         </NavBar>
       </View>
       {targetTab===0 ? 
-        <Rooms>
-          <Room name='Living Room' numDevice={1} logo='table-chair' 
-            onPress={()=>props.navigation.navigate('RoomDetail', {greeting:'this is params'})}/>
-          <Room name='Kitchen' numDevice={2} logo='microwave'
-            onPress={()=>props.navigation.navigate('RoomDetail', {greeting:'this is params'})}/>
-          <Room name='Bathroom' numDevice={0} logo='shower'
-            onPress={()=>props.navigation.navigate('RoomDetail', {greeting:'this is params'})}/>
-        </Rooms> :
-        <View >
+        <ScrollView>
+          <Rooms>
+            {rooms.map((room, key)=> {
+              return (
+                <Room key={key} room={room}
+                  onPress={()=>props.navigation.navigate('RoomDetail', {devices: room.devices})}/>
+              )
+            })}
+          </Rooms>
+        </ScrollView> :
+        <View style={{flex: 1}}>
           <Devices style={{shadowColor: "#000",
             shadowOffset: {
               width: 0,
@@ -105,61 +254,19 @@ const Home = (props) => {
                 </DeviceNav>
             )}
           </Devices>
-          <BoxRoom style={{shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,}}>
-            <Text style={{fontSize: 18, width: '100%'}}>Living Room</Text>
-            <Device device={devices[0]}/>
-            <Device device={devices[0]}/>
-            <Device device={devices[0]}/>
-          </BoxRoom>
-          <BoxRoom style={{shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,}}>
-            <Text style={{fontSize: 18, width: '100%'}}>Living Room</Text>
-            <Device device={devices[0]}/>
-            <Device device={devices[0]}/>
-            <Device device={devices[0]}/>
-          </BoxRoom>
-          <BoxRoom style={{shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,}}>
-            <Text style={{fontSize: 18, width: '100%'}}>Living Room</Text>
-            <Device device={devices[0]}/>
-            <Device device={devices[0]}/>
-            <Device device={devices[0]}/>
-          </BoxRoom>
+          <ScrollView>
+            {rooms.map((room, key)=> {
+              return (
+                <BoxRoom key={key} room={room}/>
+              )
+            })}
+          </ScrollView>
         </View >
       }
     </Container>
   )
 }
 
-const BoxRoom = styled.View`
-  padding: 5px 10px;
-  margin: 5px 10px;
-  background-color: white;
-  border-radius: 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-between;
-`
 const DeviceNav = styled.TouchableOpacity`
   display: flex;
   flex-direction: column;
@@ -189,6 +296,7 @@ const Rooms = styled.View`
 const Container = styled.View`
   width: 100%;
   display: flex;
+  flex: 1;
   flex-direction: column;
 `
 const Btn = styled.Text`

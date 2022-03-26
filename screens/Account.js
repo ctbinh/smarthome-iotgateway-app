@@ -98,7 +98,7 @@ const BtnSave = styled.Pressable`
   justify-content: center;
   padding: 10px;
   margin-left: auto;
-  background-color: ${props=>props.color?props.color:'orange'};
+  background-color: ${props=>props.color?props.color:'#2A2A37'};
 `
 const Signout = styled.Pressable`
   padding: 10px;
