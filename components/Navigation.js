@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import Account from '../screens/Account';
 import RoomDetail from '../screens/RoomDetail';
 import AddRoom from '../screens/AddRoom';
-import AddDevice from '../screens/AddDevice';
+import ChangePass from '../screens/ChangePass';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -26,7 +26,6 @@ const HomeStackScreen = () => {
       <Stack.Screen name='Home' component={Home}/>
       <Stack.Screen name='RoomDetail' component={RoomDetail}/>
       <Stack.Screen name='AddRoom' component={AddRoom}/>
-      <Stack.Screen name='AddDevice' component={AddDevice}/>
     </Stack.Navigator>
   )
 }

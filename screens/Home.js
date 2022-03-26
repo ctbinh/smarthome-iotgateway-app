@@ -146,7 +146,6 @@ const Home = (props) => {
           </BoxRoom>
         </View >
       }
-      
     </Container>
   )
 }
