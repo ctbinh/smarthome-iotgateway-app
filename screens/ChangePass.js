@@ -36,8 +36,12 @@ const ChangePass = (props) => {
         />
       </View>
       <ComboBtn>
-        <BtnSave color='#AFAFAF'><Text style={{color: 'white'}} onPress={()=>props.onBack()}>Back</Text></BtnSave>
-        <BtnSave onPress={()=>{alert('Your new pass: '+ newPass)}}><Text style={{color: 'white'}}>Save</Text></BtnSave>
+        <BtnSave color='#AFAFAF' onPress={()=>props.onBack()}>
+          <Text style={{color: 'white'}}>Back</Text>
+        </BtnSave>
+        <BtnSave onPress={()=>{alert('Your new pass: '+ newPass)}}>
+          <Text style={{color: 'white'}}>Save</Text>
+        </BtnSave>
       </ComboBtn>
     </>
   )
