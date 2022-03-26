@@ -1,4 +1,4 @@
-import { StyleSheet, View, StatusBar } from 'react-native';
+import { StyleSheet, View, StatusBar,Text } from 'react-native';
 import NavBottom from './components/NavBottom';
 
 export default function App() {
