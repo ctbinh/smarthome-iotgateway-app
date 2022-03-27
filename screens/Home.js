@@ -8,7 +8,7 @@ import { Text, View, ScrollView } from 'react-native';
 import BoxRoom from '../components/BoxRoom';
 
 const Home = (props) => {
-  const [targetTab, setTargetTab] = useState(1)
+  const [targetTab, setTargetTab] = useState(0)
   const [targetDevice, setTargetDevice] = useState('Light')
   const changeTab = (num) => {
     setTargetTab(num);
@@ -303,7 +303,7 @@ const Btn = styled.Text`
   color: ${props => props.target?'white':'gray'};
   border-bottom-width: ${props=>props.target? '4px':'0px'};
   border-color: ${props=>props.target?'#FF9900':'white'};
-  padding: 10px 10px;
+  padding: 10px;
   width: 100px;
   text-align: center;
 `
@@ -317,6 +317,7 @@ const NavBar = styled.View`
   justify-content: space-between;
   align-items: center;
   background-color: #2A2A37;
+  height: 40px;
 `
 const AddBtn = styled(IonIcon)`
   margin-right: 10px;

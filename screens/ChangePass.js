@@ -66,21 +66,6 @@ const Input = styled.TextInput`
   margin-bottom: 10px;
   font-size: 16px;
 `
-// const Avatar = styled.View`
-//   padding: 20px;
-//   background-color: #2A2A37;
-// `
-// const Title = styled.Text`
-//   color: white;
-//   font-size: 20px;
-//   font-weight: bold;
-// `
-// const Img = styled(Image)`
-//   width: 150px;
-//   height: 150px;
-//   border-radius: 100px;
-//   margin: 0 auto;
-// `
 const ComboBtn = styled.View`
   display: flex;
   flex-direction: row;

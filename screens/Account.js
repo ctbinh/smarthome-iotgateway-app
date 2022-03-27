@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import {Picker} from '@react-native-picker/picker';
 import ChangePass from './ChangePass';
 
-const Account = () => {
+const Account = (props) => {
   const user = {
     username: 'ctbinh',
     email: 'binh@gmail.com',
@@ -84,7 +84,7 @@ const Account = () => {
         </View>
         <Icon name='chevron-right' size={30}/>
       </Btn>
-      <Signout onPress={()=>{alert('Logging out')}}><Text style={{fontSize: 16, color:'red'}}>Sign out</Text></Signout>
+      <Signout onPress={()=>{props.navigation.navigate('Login')}}><Text style={{fontSize: 16, color:'red'}}>Sign out</Text></Signout>
       </> : <ChangePass onBack={()=>onBack()}/>
     }
     </View>

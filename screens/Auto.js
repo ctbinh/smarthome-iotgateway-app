@@ -71,9 +71,11 @@ const Auto = () => {
 const AddBtn = styled.View`
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   padding-right:10px;
   background-color: #2A2A37;
   width: 100%;
+  height: 40px;
 `
 const ModeContainer = styled.View`
   
