@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, Switch } from 'react-native'
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 const ModeItem = (props) => {
@@ -9,54 +10,56 @@ const ModeItem = (props) => {
 
     return (
         <ModeContainerItem>
-            <TitleContainer>
-                <Title>{props.title}</Title>
-                <Switch
-                    style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], marginRight: 20 }}
-                    trackColor={{ false: "gray", true: "orange" }}
-                    thumbColor={isEnabled ? "white" : "#f4f3f4"}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleSwitch}
-                    value={isEnabled}
-                />
-            </TitleContainer>
-            <DescriptionContainer>
+            <ModeIcon name={props.icon} size={50}/>
+            <View style={{width: '80%'}}>
+                <TitleContainer>
+                    <Title>{props.title}</Title>
+                    <Switch
+                        style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], width:'20%' }}
+                        trackColor={{ false: "gray", true: "orange" }}
+                        thumbColor={isEnabled ? "white" : "#f4f3f4"}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={toggleSwitch}
+                        value={isEnabled}
+                    />
+                </TitleContainer>
                 <ItemDescription>
                     {props.description}
                 </ItemDescription>
-            </DescriptionContainer>
+            </View>
         </ModeContainerItem>
     )
 }
 
+const ModeIcon = styled(Icon)`
+    width: 20%;
+`
 const ModeContainerItem = styled.View`
-    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
     background-color: #F0F0F0;
-    margin: 20px auto;
-    padding:10px 0 50px 20px;
+    margin-bottom: 10px;
+    padding: 20px;
     border-radius: 10px;
 `
-
-
 const TitleContainer = styled.View`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    width: 100%;
 `
 
 const Title = styled.Text`
     font-size: 20px;
+    width: 80%;
     font-weight: 600;
-    
-`
-
-const DescriptionContainer = styled.View`
-
 `
 
 const ItemDescription = styled.Text`
-
+    width: 100%;
 `
 export default ModeItem

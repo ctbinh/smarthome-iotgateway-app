@@ -13,6 +13,7 @@ import RoomDetail from '../screens/RoomDetail';
 import AddRoom from '../screens/AddRoom';
 import ChangePass from '../screens/ChangePass';
 import Login from '../screens/Login';
+import AddMode from '../screens/AddMode';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -49,6 +50,7 @@ const AutoStackScreen = () => {
       tabBarShowLabel: false
   }}>
       <Stack.Screen name='Auto' component={Auto}/>
+      <Stack.Screen name='AddMode' component={AddMode}/>
     </Stack.Navigator>
   )
 }
