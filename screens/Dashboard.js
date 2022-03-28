@@ -1,5 +1,5 @@
 import { ScrollView, View, Text, Dimensions } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header'
 import styled from 'styled-components/native';
 import {
@@ -7,24 +7,81 @@ import {
 } from "react-native-chart-kit";
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const chartData = {
+const chartData = [
+  {
+    labels: ["0", "2", "4", "6", "8", "10", "12", "14", "16", "18", "20", "22"],
+    datasets: [
+      {
+        data: [
+          1,2,3,4,5,6,7,8,9,10,11,12
+        ]
+      }
+    ]
+  },
+  {
   labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   datasets: [
     {
       data: [
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100
+        1,2,3,4,5,6,7
       ]
     }
   ]
-};
+},{
+  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  datasets: [
+    {
+      data: [
+        1,2,3,4,5,6,7,8,9,10,11,12
+      ]
+    }
+  ]
+},{
+  labels: ["0", "2", "4", "6", "8", "10", "12", "14", "16", "18", "20", "22"],
+  datasets: [
+    {
+      data: [
+        1,2,3,4,5,6,7,8,9,10,11,12
+      ]
+    }
+  ]
+},
+{
+labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+datasets: [
+  {
+    data: [
+      1,2,3,4,5,6,7
+    ]
+  }
+]
+},{
+labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+datasets: [
+  {
+    data: [
+      1,2,3,4,5,6,7,8,9,10,11,12
+    ]
+  }
+]
+}];
 
 const Dashboard = () => {
+  const [timeOptionTemp, setTimeOptionTemp] = useState(1);
+  const [timeOptionHumi, setTimeOptionHumi] = useState(4);
+  const [dataChartTemp, setDataChartTemp] = useState(chartData[0]);
+  const [dataChartHumi, setDataChartHumi] = useState(chartData[3]);
+  const handlePressTemp = (key)=>{
+    setTimeOptionTemp(key);
+    setDataChartTemp(chartData[key-1]);
+  }
+
+  const handlePressHumi = (key)=>{
+    setTimeOptionHumi(key);
+    setDataChartHumi(chartData[key-1]);
+  }
+
+
   return (
     <ScrollView>
       <Header title='Statics' />
@@ -36,9 +93,25 @@ const Dashboard = () => {
             <IconChart>
               <Icon name="temperature-low" size={25} color='orange' />
             </IconChart>
+            <TimeOptions>
+              <TimeOption onPress={()=>handlePresstemp(1)}
+              >
+                <Text style={{ color: timeOptionTemp === 1 ? 'orange' : 'white' }}>Day</Text>
+              </TimeOption>
+              <TimeOption onPress={()=>handlePressTemp(2)}
+
+              >
+                <Text style={{ color: timeOptionTemp === 2 ? 'orange' : 'white'}}>Week</Text>
+              </TimeOption>
+              <TimeOption onPress={()=>handlePressTemp(3)}
+
+              >
+                <Text style={{ color: timeOptionTemp === 3 ? 'orange' : 'white' }}>Month</Text>
+              </TimeOption>
+            </TimeOptions>
           </TitleContainer>
           <LineChart
-            data={chartData}
+            data={dataChartTemp}
             width={Dimensions.get("window").width} // from react-native
             height={220}
             yAxisSuffix="&#8451;"
@@ -65,15 +138,31 @@ const Dashboard = () => {
 
         </ChartContainer>
         <ChartContainer>
-        <TitleContainer>
+          <TitleContainer>
             <Title>Humidity Chart
             </Title>
             <IconChart>
               <Icon name="hand-holding-water" size={25} color='orange' />
             </IconChart>
+            <TimeOptions>
+              <TimeOption onPress={()=>handlePressHumi(4)}
+              >
+                <Text style={{ color: timeOptionHumi === 4 ? 'orange' : 'white' }}>Day</Text>
+              </TimeOption>
+              <TimeOption onPress={()=>handlePressHumi(5)}
+
+              >
+                <Text style={{ color: timeOptionHumi === 5 ? 'orange' : 'white'}}>Week</Text>
+              </TimeOption>
+              <TimeOption onPress={()=>handlePressHumi(6)}
+
+              >
+                <Text style={{ color: timeOptionHumi === 6 ? 'orange' : 'white' }}>Month</Text>
+              </TimeOption>
+            </TimeOptions>
           </TitleContainer>
           <LineChart
-            data={chartData}
+            data={dataChartHumi}
             width={Dimensions.get("window").width} // from react-native
             height={220}
             // yAxisLabel="$"
@@ -119,6 +208,14 @@ margin: 10px 0 10px 10px;
 const Title = styled.Text`
   font-size: 20px;
   font-weight: 600;
+`
+const TimeOptions = styled.View`
+  display: flex;
+  flex-direction: row;
+  margin-left: 40px;
+`
+const TimeOption = styled.TouchableOpacity`
+  padding: 0 5px;
 `
 
 const ChartContainer = styled.View``
