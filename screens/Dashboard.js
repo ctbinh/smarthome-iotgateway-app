@@ -93,8 +93,10 @@ const Dashboard = () => {
             loadDatasByDevice("gas-1")
         ]).then((data) => {
             const [tempNew, humidNew, gasNew] = data
-            tempNew.reverse() //mutable :)) tempNew thay doi theo luon
+            tempNew.reverse()
             humidNew.reverse()
+            // console.log(tempNew.map(item => item.created.slice(11,19)))
+            // console.log(tempNew.map(item => parseFloat(item.dataValue)))
             // console.log(tempList)
             // console.log(tempNew)            
             // // if (gas_1 >= 120 ) alert()
@@ -129,28 +131,26 @@ const Dashboard = () => {
                 humidity_1: humidNew[humidNew.length-1].dataValue,
                 gas_1: Math.ceil(gasNew[0].dataValue/10.23),
                 temperature_chart_1: {
-                  // labels: tempList.map((item, index) => {
-                  //   if (index % 5 == 0)
-                  //     return item.created.slice(11,19)
-                  //   else return ""
-                  // }),
-                  labels: tempNew.map(item => item.created),
+                  labels: tempNew.map((item, index) => {
+                    if (index % 5 == 0)
+                      return item.created.slice(11,19)
+                    else return ""
+                  }),
                   datasets: [
                     {
-                      data: tempNew.map(item => item.dataValue)
+                      data: tempNew.map(item => parseFloat(item.dataValue))
                     }
                   ]
                 },
                 humid_chart_1: {
-                  // labels: humidList.map((item, index) => {
-                  //   if (index % 5 == 0)
-                  //     return item.created.slice(11,19)
-                  //   else return ""
-                  // }),
-                  labels: humidNew.map(item => item.created),
+                  labels: humidNew.map((item, index) => {
+                    if (index % 5 == 0)
+                      return item.created.slice(11,19)
+                    else return ""
+                  }),
                   datasets: [
                     {
-                      data: humidNew.map(item => item.dataValue)
+                      data: humidNew.map(item => parseFloat(item.dataValue))
                     }
                   ]
                 }
