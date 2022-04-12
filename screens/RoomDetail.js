@@ -18,9 +18,10 @@ const RoomDetail = ({navigation, route}) => {
       </View>
       <Devices>
         {params.devices.map((device, key)=> {
-          return (
-            <Device key={key} device={device}/>
-          )
+          if(device.typeName !== 'light-sensor' && device.typeName !== 'buzzer')
+            return (
+              <Device key={key} device={device}/>
+            )
         })}
       </Devices>
     </Container>

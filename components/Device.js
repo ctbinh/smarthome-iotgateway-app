@@ -39,7 +39,7 @@ const Device = (props) => {
           trackColor={{ false: "gray", true: "orange" }}
           thumbColor={isEnabled ? "white" : "#f4f3f4"}
           ios_backgroundColor="#3e3e3e"
-          onValueChange={()=>handleChange(props.device.name, {isActive: !props.device.isActive})}
+          onValueChange={()=>handleChange(props.device.name, {isActive: !isEnabled})}
           value={isEnabled}
           disabled={props.device.isModded}
         />

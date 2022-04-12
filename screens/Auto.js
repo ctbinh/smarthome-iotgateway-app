@@ -5,37 +5,6 @@ import styled from 'styled-components/native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import ModeItem from '../components/ModeItem';
 
-// const autoItems = [
-//   {
-//     id: 0,
-//     title: 'Auto Light Mode',
-//     description: 'You can switch the auto mode light here',
-//     icon: 'lightbulb-on-outline'
-//   },
-//   {
-//     id: 1,
-//     title: 'Security Mode',
-//     description: 'You can switch the security mode hereYou can switch the security mode here',
-//     icon: 'security'
-//   },
-//   {
-//     id: 2,
-//     title: 'Auto Light Mode',
-//     description: 'You can switch the auto mode light here',
-//     icon: 'lightbulb-on-outline'
-//   },{
-//     id: 3,
-//     title: 'Auto Light Mode',
-//     description: 'You can switch the auto mode light here',
-//     icon: 'lightbulb-on-outline'
-//   },{
-//     id: 4,
-//     title: 'Auto Light Mode',
-//     description: 'You can switch the auto mode light here',
-//     icon: 'lightbulb-on-outline'
-//   }
-// ]
-
 import { loadModesByUser, updateMode } from "../service/axios"
 
 const Auto = (props) => {
@@ -49,7 +18,8 @@ const Auto = (props) => {
       description: 'You can switch auto mode on light here'
     }
   ])
-  useEffect( async() => {
+  useEffect( () => {
+    setTimeout(async()=> {
     const listModes = await loadModesByUser(id)
     const lisst = listModes.map( item => {
         let form = {}
@@ -80,7 +50,8 @@ const Auto = (props) => {
     })
     setModeData(lisst)
     // console.log(lisst)
-  },[])
+  }, 1000)
+  },[ModeData])
 
   const handleChange = async (modeId, formData) => {
     setModeData(ModeData.map( item => {
