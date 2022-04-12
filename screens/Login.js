@@ -2,13 +2,25 @@ import { View, Text, Image, ImageBackground, StyleSheet } from 'react-native'
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import Icon from 'react-native-vector-icons/Ionicons'
+import {login} from '../service/axios'
 
-const Login = (props) => {
+const LoginPage = (props) => {
   const [targetInput, setTargetInput] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [targetTab, setTargetTab] = useState(0)
+
+  const handleSubmit = async () => {
+    const formData = {
+        username: username,
+        password: password
+    }
+    const res = await login(formData);
+    if (res.status == "OK") props.navigation.navigate('Navigation')
+    else alert("Wrong input")
+  }
+
   return (
     <Container source={require('../components/images/bg.jpg')} resizeMode="cover">
       <Layer></Layer>
@@ -38,7 +50,8 @@ const Login = (props) => {
                 secureTextEntry={true}
               />
             </BoxInput>
-            <Btn color='orange' onPress={()=>props.navigation.navigate('Navigation')}>
+            
+            <Btn color='orange' onPress={handleSubmit}>
               <Text style={{color:'white', fontSize: 16}}>Login</Text>
             </Btn>
             <Text style={{color:'white', fontSize:16}}>
@@ -124,4 +137,4 @@ const Layer = styled.View`
 const Container = styled.ImageBackground`
   flex: 1;
 `
-export default Login
+export default LoginPage
