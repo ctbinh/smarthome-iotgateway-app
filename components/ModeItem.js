@@ -3,11 +3,7 @@ import { View, Text, Switch } from 'react-native'
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-
 const ModeItem = (props) => {
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = ()=> setIsEnabled(prev => !prev)
-
     return (
         <ModeContainerItem>
             <ModeIcon name={props.icon} size={50}/>
@@ -17,10 +13,10 @@ const ModeItem = (props) => {
                     <Switch
                         style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], width:'20%' }}
                         trackColor={{ false: "gray", true: "orange" }}
-                        thumbColor={isEnabled ? "white" : "#f4f3f4"}
+                        thumbColor={props.isActive ? "white" : "#f4f3f4"}
                         ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleSwitch}
-                        value={isEnabled}
+                        onValueChange={() => props.handleChange(props.id, {isActive: !props.isActive})}
+                        value={props.isActive}
                     />
                 </TitleContainer>
                 <ItemDescription>

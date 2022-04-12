@@ -14,7 +14,7 @@ const BoxRoom = (props) => {
       shadowRadius: 3.84,
       elevation: 5,}}>
       <Text style={{fontSize: 18, width: '100%'}}>{props.room.name}</Text>
-      {props.room.devices.map((device, key)=> {
+      {props.listDevice.map((device, key)=> {
         return (
           <Device key={key} device={device}/>
         )

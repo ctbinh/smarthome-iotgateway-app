@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -6,6 +6,8 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import Room from '../components/Room';
 import { Text, View, ScrollView } from 'react-native';
 import BoxRoom from '../components/BoxRoom';
+
+import { loadAreasByUser, loadDevicesByArea } from "../service/axios"
 
 const Home = (props) => {
   const [targetTab, setTargetTab] = useState(0)
@@ -214,14 +216,40 @@ const Home = (props) => {
     }
   ]
   
+  const [targetRoomId, settargetRoomId] = useState(0)
+  const {userId} = props
+  const [listRooms, setRooms] = useState([
+    {
+      id: 0,
+      name: 'Living room'
+    }
+  ])
+
+  const [listDevice, setlistDevice] = useState([])
+  useEffect( async () => {
+    const listAreas = await loadAreasByUser(userId)
+    settargetRoomId(listAreas[0]._id)
+    setRooms(listAreas.map( item => { return {id: item._id, icon: 'table-chair', name: item.areaName }}))
+  }, [])
+
+  useEffect( () => {
+    setTimeout( async () => {
+      const listDevices = await loadDevicesByArea(targetRoomId)
+      if (listDevices != "NOT OK") {
+        setlistDevice(listDevices)
+        // console.log(listDevices)
+      }
+    }, 1000)
+  }, [targetRoomId, listDevice])
+
   return (
     <Container>
       <View style={{backgroundColor:'#2A2A37'}}>
         <Header title='Your Home'/>
         <NavBar>
           <ComboBtn>
-            <Btn onPress={()=>changeTab(0)} style={{zIndex: 0.5}} target={targetTab===0}>ROOMS</Btn>
             <Btn onPress={()=>changeTab(1)} style={{zIndex: 0.5}} target={targetTab===1}>DEVICES</Btn>
+            <Btn onPress={()=>changeTab(0)} style={{zIndex: 0.5}} target={targetTab===0}>ROOMS</Btn>
           </ComboBtn>
           <AddBtn name="add-circle" size={34} color="orange" 
             onPress={()=>props.navigation.navigate('AddRoom', {add: 'room'})}/>
@@ -230,10 +258,10 @@ const Home = (props) => {
       {targetTab===0 ? 
         <ScrollView>
           <Rooms>
-            {rooms.map((room, key)=> {
+            {listRooms.map((room, key)=> {
               return (
                 <Room key={key} room={room}
-                  onPress={()=>props.navigation.navigate('RoomDetail', {devices: room.devices})}/>
+                  onPress={()=>props.navigation.navigate('RoomDetail', {devices: listDevice})}/>
               )
             })}
           </Rooms>
@@ -255,9 +283,9 @@ const Home = (props) => {
             )}
           </Devices>
           <ScrollView>
-            {rooms.map((room, key)=> {
+            {listRooms.map((room, key)=> {
               return (
-                <BoxRoom key={key} room={room}/>
+                <BoxRoom key={key} room={room} listDevice={listDevice}/>
               )
             })}
           </ScrollView>

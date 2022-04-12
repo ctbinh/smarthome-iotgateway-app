@@ -76,7 +76,7 @@ export const loadDevicesByArea =  async (areaId) => {
 
 // HOME PAGE
 export const loadDatasByDevice = async (deviceName) => {
-    const url = `/device/${deviceName}/data`
+    const url = `/device/${deviceName}/dataapp`
     const { data }  = await axios.get(url)
     return data
 }

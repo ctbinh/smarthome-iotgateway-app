@@ -18,14 +18,16 @@ import AddMode from '../screens/AddMode';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const HomeStackScreen = () => {
+const HomeStackScreen = ({userId}) => {
   return (
     <Stack.Navigator screenOptions={{
       headerShown: false,
       showIcon: true,
       tabBarShowLabel: false
   }}>
-      <Stack.Screen name='Home' component={Home}/>
+      <Stack.Screen name='Home'>
+        {props => <Home {...props} userId={userId} />}
+      </Stack.Screen>
       <Stack.Screen name='RoomDetail' component={RoomDetail}/>
       <Stack.Screen name='AddRoom' component={AddRoom}/>
     </Stack.Navigator>
@@ -42,14 +44,16 @@ const DashboardStackScreen = () => {
     </Stack.Navigator>
   )
 }
-const AutoStackScreen = () => {
+const AutoStackScreen = ({userId}) => {
   return (
     <Stack.Navigator screenOptions={{
       headerShown: false,
       showIcon: true,
       tabBarShowLabel: false
   }}>
-      <Stack.Screen name='Auto' component={Auto}/>
+      <Stack.Screen name='Auto'>
+        {props => <Auto {...props} id={userId} />}
+      </Stack.Screen>
       <Stack.Screen name='AddMode' component={AddMode}/>
     </Stack.Navigator>
   )
@@ -65,14 +69,17 @@ const AccountStackScreen = () => {
     </Stack.Navigator>
   )
 }
-const Navigation = () => {
+const Navigation = ({navigation, route}) => {
+  const { data } = route.params;
   return (
     <Tab.Navigator screenOptions={{
         headerShown: false,
         showIcon: true,
         tabBarShowLabel: false,
     }}>
-      <Tab.Screen name="HomeStackScreen" component={HomeStackScreen} options={{
+      <Tab.Screen name="HomeStackScreen" 
+      children={()=><HomeStackScreen userId={data}/>}
+      options={{
         tabBarIcon: ({focused}) => (
           <NavIcon>
             <Icon style={{color: focused ? 'orange' : 'gray'}} name="home" size={20}/>
@@ -88,7 +95,9 @@ const Navigation = () => {
           </NavIcon>
         )
       }}/>
-      <Tab.Screen name="AutoStackScreen" component={AutoStackScreen} options={{
+      <Tab.Screen name="AutoStackScreen" 
+      children={()=><AutoStackScreen userId={data}/>}
+      options={{
         tabBarIcon: ({focused}) => (
           <NavIcon>
             <Icon style={{color: focused ? 'orange' : 'gray'}} name="auto-awesome" size={20}/>

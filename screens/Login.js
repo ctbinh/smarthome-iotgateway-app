@@ -2,12 +2,12 @@ import { View, Text, Image, ImageBackground, StyleSheet } from 'react-native'
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import Icon from 'react-native-vector-icons/Ionicons'
-import {login} from '../service/axios'
+import {login, signup} from '../service/axios'
 
 const LoginPage = (props) => {
   const [targetInput, setTargetInput] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('hoaibao')
+  const [password, setPassword] = useState('123456')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [targetTab, setTargetTab] = useState(0)
 
@@ -17,9 +17,23 @@ const LoginPage = (props) => {
         password: password
     }
     const res = await login(formData);
-    if (res.status == "OK") props.navigation.navigate('Navigation')
+    if (res.status == "OK") props.navigation.navigate('Navigation', {data: res.userId})
     else alert("Wrong input")
   }
+  
+  const handleSignup = async () => {
+    const formData = {
+        fname:'fname',
+        lname: 'lname',
+        username: username,
+        password: password,
+        email: 'email',
+        phone: 'phone'
+    }
+    const res = await signup(formData);
+    if (res.status == "OK") setTargetTab(0)
+    else alert("ERROR IN FORM")
+};
 
   return (
     <Container source={require('../components/images/bg.jpg')} resizeMode="cover">
@@ -87,7 +101,9 @@ const LoginPage = (props) => {
                 secureTextEntry={true}
               />
             </BoxInput>
-            <Btn color='orange' ><Text style={{color:'white', fontSize: 16}}>Create Account</Text></Btn>
+            <Btn color='orange' onPress={handleSignup}>
+              <Text style={{color:'white', fontSize: 16}}>Create Account</Text>
+            </Btn>
             <Text style={{color:'white', fontSize:16}}>
               Already have an account? <Text style={{color:'orange'}} onPress={()=>setTargetTab(0)}>Sign In</Text>
             </Text>
