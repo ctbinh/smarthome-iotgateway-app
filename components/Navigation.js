@@ -18,7 +18,18 @@ import AddMode from '../screens/AddMode';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const HomeStackScreen = ({userId}) => {
+const HomeStackScreen = () => {
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false,
+      showIcon: true,
+      tabBarShowLabel: false
+  }}>
+      <Stack.Screen name='Dashboard' component={Dashboard}/>
+    </Stack.Navigator>
+  )
+}
+const DashboardStackScreen = ({userId}) => {
   return (
     <Stack.Navigator screenOptions={{
       headerShown: false,
@@ -30,17 +41,6 @@ const HomeStackScreen = ({userId}) => {
       </Stack.Screen>
       <Stack.Screen name='RoomDetail' component={RoomDetail}/>
       <Stack.Screen name='AddRoom' component={AddRoom}/>
-    </Stack.Navigator>
-  )
-}
-const DashboardStackScreen = () => {
-  return (
-    <Stack.Navigator screenOptions={{
-      headerShown: false,
-      showIcon: true,
-      tabBarShowLabel: false
-  }}>
-      <Stack.Screen name='Dashboard' component={Dashboard}/>
     </Stack.Navigator>
   )
 }
@@ -78,7 +78,7 @@ const Navigation = ({navigation, route}) => {
         tabBarShowLabel: false,
     }}>
       <Tab.Screen name="HomeStackScreen" 
-      children={()=><HomeStackScreen userId={data}/>}
+      component={HomeStackScreen}
       options={{
         tabBarIcon: ({focused}) => (
           <NavIcon>
@@ -87,7 +87,9 @@ const Navigation = ({navigation, route}) => {
           </NavIcon>
         )
       }}/>
-      <Tab.Screen name="DashboardStackScreen" component={DashboardStackScreen} options={{
+      <Tab.Screen name="DashboardStackScreen" 
+      children={()=><DashboardStackScreen userId={data}/>} 
+      options={{
         tabBarIcon: ({focused}) => (
           <NavIcon>
             <Icon style={{color: focused ? 'orange' : 'gray'}} name="dashboard" size={20}/>
