@@ -216,7 +216,7 @@ const Home = (props) => {
     }
   ]
   
-  const [targetRoomId, settargetRoomId] = useState(0)
+  const [targetRoomId, settargetRoomId] = useState("0")
   const {userId} = props
   const [listRooms, setRooms] = useState([
     {
@@ -225,22 +225,15 @@ const Home = (props) => {
     }
   ])
 
-  const [listDevice, setlistDevice] = useState([])
-  useEffect( async () => {
-    const listAreas = await loadAreasByUser(userId)
-    settargetRoomId(listAreas[0]._id)
-    setRooms(listAreas.map( item => { return {id: item._id, icon: 'table-chair', name: item.areaName }}))
-  }, [])
-
+  
   useEffect( () => {
-    setTimeout( async () => {
-      const listDevices = await loadDevicesByArea(targetRoomId)
-      if (listDevices != "NOT OK") {
-        setlistDevice(listDevices)
-        // console.log(listDevices)
-      }
-    }, 1000)
-  }, [targetRoomId, listDevice])
+    async function fetchListAreas() {
+      const listAreas = await loadAreasByUser(userId)
+      settargetRoomId(listAreas[0]._id)
+      setRooms(listAreas.map( item => { return {id: item._id, icon: 'table-chair', name: item.areaName }}))
+    }
+    fetchListAreas()
+  }, [])
 
   return (
     <Container>
@@ -261,7 +254,7 @@ const Home = (props) => {
             {listRooms.map((room, key)=> {
               return (
                 <Room key={key} room={room}
-                  onPress={()=>props.navigation.navigate('RoomDetail', {devices: listDevice})}/>
+                  onPress={()=>props.navigation.navigate('RoomDetail', {targetRoomId: targetRoomId})}/>
               )
             })}
           </Rooms>
