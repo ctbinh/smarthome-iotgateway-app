@@ -161,7 +161,7 @@ const Dashboard = () => {
   }, [dataForm])
   return (
     <ScrollView>
-      <Header title='Statics' />
+      <Header title='Home' />
       <Container>
         <TitleContainer>
           <Title>Temperature: {dataForm.temperature_1}

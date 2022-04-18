@@ -216,7 +216,7 @@ const Home = (props) => {
     }
   ]
   
-  const [targetRoomId, settargetRoomId] = useState(0)
+  const [targetRoomId, settargetRoomId] = useState("0")
   const {userId} = props
   const [listRooms, setRooms] = useState([
     {
@@ -225,30 +225,23 @@ const Home = (props) => {
     }
   ])
 
-  const [listDevice, setlistDevice] = useState([])
-  useEffect( async () => {
-    const listAreas = await loadAreasByUser(userId)
-    settargetRoomId(listAreas[0]._id)
-    setRooms(listAreas.map( item => { return {id: item._id, icon: 'table-chair', name: item.areaName }}))
-  }, [])
-
+  
   useEffect( () => {
-    setTimeout( async () => {
-      const listDevices = await loadDevicesByArea(targetRoomId)
-      if (listDevices != "NOT OK") {
-        setlistDevice(listDevices)
-        // console.log(listDevices)
-      }
-    }, 1000)
-  }, [targetRoomId, listDevice])
+    async function fetchListAreas() {
+      const listAreas = await loadAreasByUser(userId)
+      settargetRoomId(listAreas[0]._id)
+      setRooms(listAreas.map( item => { return {id: item._id, icon: 'table-chair', name: item.areaName }}))
+    }
+    fetchListAreas()
+  }, [])
 
   return (
     <Container>
       <View style={{backgroundColor:'#2A2A37'}}>
-        <Header title='Your Home'/>
+        <Header title='Dashboard'/>
         <NavBar>
           <ComboBtn>
-            <Btn onPress={()=>changeTab(1)} style={{zIndex: 0.5}} target={targetTab===1}>DEVICES</Btn>
+            {/* <Btn onPress={()=>changeTab(1)} style={{zIndex: 0.5}} target={targetTab===1}>DEVICES</Btn> */}
             <Btn onPress={()=>changeTab(0)} style={{zIndex: 0.5}} target={targetTab===0}>ROOMS</Btn>
           </ComboBtn>
           <AddBtn name="add-circle" size={34} color="orange" 
@@ -261,7 +254,7 @@ const Home = (props) => {
             {listRooms.map((room, key)=> {
               return (
                 <Room key={key} room={room}
-                  onPress={()=>props.navigation.navigate('RoomDetail', {devices: listDevice})}/>
+                  onPress={()=>props.navigation.navigate('RoomDetail', {targetRoomId: targetRoomId})}/>
               )
             })}
           </Rooms>
@@ -285,7 +278,7 @@ const Home = (props) => {
           <ScrollView>
             {listRooms.map((room, key)=> {
               return (
-                <BoxRoom key={key} room={room} listDevice={listDevice}/>
+                <BoxRoom key={key} room={room} listDevice={[]}/>
               )
             })}
           </ScrollView>

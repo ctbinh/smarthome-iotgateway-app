@@ -63,7 +63,7 @@ const Auto = (props) => {
         }
     }))
     const res = await updateMode(modeId, formData)
-    console.log(res)
+    // console.log(res)
 }
 
   return (

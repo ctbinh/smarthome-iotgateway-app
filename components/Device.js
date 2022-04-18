@@ -1,5 +1,5 @@
 import { View, Text, Switch } from 'react-native'
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import ModeFanOffIcon from '@mui/icons-material/ModeFanOff';
@@ -14,12 +14,18 @@ import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {updateData} from "../service/axios"
 
 const Device = (props) => {
-  const [isEnabled, setIsEnabled] = useState(props.device.isActive);
   const handleChange = async (deviceName, data) => {
-    setIsEnabled(!isEnabled)
+    props.setlistDevice(props.listDevice.map( item => {
+      if (item.name == deviceName) item.isActive = data.isActive
+      return {
+          id: item.id,
+          isActive: item.isActive,
+          ...item
+      }
+    }))
     const res = await updateData(deviceName, data)
-    console.log(res)
-  };
+    // console.log(res)
+  }
   return (
     <Container>
       <Row>
@@ -37,10 +43,10 @@ const Device = (props) => {
         <Switch
           style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], marginRight:5 }}
           trackColor={{ false: "gray", true: "orange" }}
-          thumbColor={isEnabled ? "white" : "#f4f3f4"}
+          thumbColor={props.device.isActive ? "white" : "#f4f3f4"}
           ios_backgroundColor="#3e3e3e"
-          onValueChange={()=>handleChange(props.device.name, {isActive: !isEnabled})}
-          value={isEnabled}
+          onChange={()=>handleChange(props.device.name, {isActive: !props.device.isActive})}
+          value={props.device.isActive}
           disabled={props.device.isModded}
         />
       </Row>
